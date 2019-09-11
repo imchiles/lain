@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.Ktr8052Mapper">
+	<select id="findKtr8052Address" resultType="int">
+		SELECT address FROM ktr8052_manage WHERE di_id = #{diId}
+	</select>
+	<update id="updataKtr8052Galery">
+		UPDATE ktr8052_manage SET status=#{status} WHERE gallery=#{gallery} AND address=#{address} AND di_id=#{diId}
+	</update>
+</mapper>

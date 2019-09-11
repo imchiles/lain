@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.UserMapper">
+	<select id = "findUserAll" resultType="com.lain.entity.User">
+		SELECT * FROM user u,role r WHERE u.r_id = r.r_id
+	</select>
+	<select id = "findUserById" resultType="com.lain.entity.User">
+		SELECT * FROM user u,role r WHERE u_id = #{uId} AND u.r_id = r.r_id
+	</select>
+	<insert id="insertUser" parameterType="com.lain.entity.User" useGeneratedKeys="true">
+        INSERT INTO user(username,password,vsername,telephone,email,weekday,r_id) VALUES (#{username},#{password},#{vsername},#{telephone},#{email},#{weekday},#{rId})
+    </insert>
+	<update id="updateUserById" parameterType="com.lain.entity.User">
+        UPDATE user SET username=#{username},password=#{password},vsername=#{vsername},telephone=#{telephone},email=#{email},weekday=#{weekday} WHERE u_id=#{uId}
+    </update>
+    <delete id="deleteUserById">
+        DELETE FROM user WHERE u_id=#{uId}
+    </delete>
+    <select id="findUserByUsername" resultType="com.lain.entity.User">
+    	SELECT * FROM user u,role r WHERE username = #{username} and u.r_id = r.r_id
+    </select>
+    <update id="updateRIdById" parameterType="com.lain.entity.User">
+    	UPDATE user SET r_id=#{rId} WHERE u_id=#{uId}
+    </update>
+</mapper>

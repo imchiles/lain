@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.ElectricmeterMapper">
+	<select id="findElectricmeterAll" resultType="com.lain.entity.ElectricmeterManage">
+		SELECT * FROM
+		po_electricmeter_manage
+	</select>
+	<select id="findElectricmeterById" resultType="int">
+		SELECT pem_address
+		FROM po_electricmeter_manage WHERE di_id=#{diId}
+	</select>
+	<insert id="insertElectricmeterManage" parameterType="com.lain.entity.ElectricmeterManage">
+		INSERT INTO
+		po_electricmeter_manage(pem_address,pem_name,pem_MaxAvol,pem_MaxAvol,pem_MaxBvol,pem_MinBvol,pem_MaxCvol,pem_MinCvol,pem_MaxAcur,pem_MinAcur,pem_MaxBcur,pem_MinBcur,pem_MaxCcur,pem_MinCcur,pem_MaxABvol,pem_MinABvol,pem_MaxBCvol,pem_MinBCvol,pem_MaxCAvol,pem_MinCAvol,pem_MaxApap,pem_MinApap,pem_MaxBpap,pem_MinBpap,pem_MaxCpap,pem_MinCpap,pem_MaxAprp,pem_MinAprp,pem_MaxBprp,pem_MinBprp,pem_MaxCprp,pem_MinCprp,pem_MaxAppf,pem_MinAppf,pem_MaxBppf,pem_MinBppf,pem_MaxCppf,pem_MinCppf,pem_MaxTpap,pem_MinTpap,pem_MaxTprp,pem_MinTprp,pem_MaxTppf,pem_MinTppf,intervalTime,di_id)
+		VALUES
+		(#{pemAddress},#{pemName},#{pemMaxAvol},#{pemMainAvol},#{pemMaxBvol},#{pemMinBvol},#{pemMaxCvol},#{pemMinCvol},#{pemMaxAcur},#{pemMinAcur},#{pemMaxBcur},#{pemMinBcur},#{pemMaxCcur},#{pemMinCcur},#{pemMaxABvol},#{pemMinABvol},#{pemMaxBCvol},#{pemMinBCvol},#{pemMaxCAvol},#{pemMinCAvol},#{pemMaxApap},#{pemMinApap},#{pemMaxBpap},#{pemMinBpap},#{pemMaxCpap},#{pemMinCpap},#{pemMaxAprp},#{pemMinAprp},#{pemMaxBprp},#{pemMinBprp},#{pemMaxCprp},#{pemMinCprp},#{pemMaxAppf},#{pemMinAppf},#{pemMaxBppf},#{pemMinBppf},#{pemMaxCppf},#{pemMinCppf},#{pemMaxTpap},#{pemMinTpap},#{pemMaxTprp},#{pemMinTprp},#{pemMaxTppf},#{pemMinTppf},#{intervalTime},#{diId})
+	</insert>
+	<update id="updateElectricmeterManage" parameterType="com.lain.entity.ElectricmeterManage">
+		UPDATE
+		po_electricmeter_manage SET
+		pem_address=#{pemAddress},pem_name=#{pemName},pem_MaxAvol=#{pemMaxAvol},pem_MaxAvol=#{pemMaxAvol},pem_MaxBvol=#{pemMaxBvol},pem_MinBvol=#{pemMinBvol},pem_MaxCvol=#{pemMaxCvol},pem_MinCvol=#{pemMinCvol},pem_MaxAcur=#{pemMaxAcur},pem_MinAcur=#{pemMinAcur},pem_MaxBcur=#{pemMaxBcur},pem_MinBcur=#{pemMinBcur},pem_MaxCcur=#{pemMaxCcur},pem_MinCcur=#{pemMinCcur},pem_MaxABvol=#{pemMaxABvol},pem_MinABvol=#{pemMinABvol},pem_MaxBCvol=#{pemMaxBCvol},pem_MinBCvol=#{pemMinBCvol},pem_MaxCAvol=#{pemMaxCAvol},pem_MinCAvol=#{pemMinCAvol},pem_MaxApap=#{pemMaxApap},pem_MinApap=#{pemMinApap},pem_MaxBpap=#{pemMaxBpap},pem_MinBpap=#{pemMinBpap},pem_MaxCpap=#{pemMaxCpap},pem_MinCpap=#{pemMinCpap},pem_MaxAprp=#{pemMaxAprp},pem_MinAprp=#{pemMinAprp},pem_MaxBprp=#{pemMaxBprp},pem_MinBprp=#{pemMinBprp},pem_MaxCprp=#{pemMaxCprp},pem_MinCprp=#{pemMinCprp},pem_MaxAppf=#{pemMaxAppf},pem_MinAppf=#{pemMinAppf},pem_MaxBppf=#{pemMaxBppf},pem_MinBppf=#{pemMinBppf},pem_MaxCppf=#{pemMaxCppf},pem_MinCppf=#{pemMinCppf},pem_MaxTpap=#{pemMaxTpap},pem_MinTpap=#{pemMinTpap},pem_MaxTprp=#{pemMaxTprp},pem_MinTprp=#{pemMinTprp},pem_MaxTppf=#{pemMaxTppf},pem_MinTppf=#{pemMinTppf},intervalTime=#{intervalTime}
+		WHERE di_id = diId
+	</update>
+	<delete id="deleteElectricmeterManage">
+		DELETE FROM po_electricmeter_manage WHERE pem_id=#{pemId}
+	</delete>
+	<update id="updateElectricmeterRealTimeData" parameterType="com.lain.entity.ElectricmeterData">
+		UPDATE po_electricmeter_data SET
+		ped_Avol=#{pedAvol},ped_Bvol=#{pedBvol},ped_Cvol=#{pedCvol},ped_Acur=#{pedAcur},ped_Bcur=#{pedBcur},ped_Ccur=#{pedCcur},ped_ABvol=#{pedABvol},ped_BCvol=#{pedBCvol},ped_CAvol=#{pedCAvol},ped_Apap=#{pedApap},ped_Bpap=#{pedBpap},ped_Cpap=#{pedCpap},ped_Aprp=#{pedAprp},ped_Bprp=#{pedBprp},ped_Cprp=#{pedCprp},ped_Appf=#{pedAppf},ped_Bppf=#{pedBppf},ped_Cppf=#{pedCppf},ped_Tpap=#{pedTpap},ped_Tprp=#{pedTprp},ped_Tppf=#{pedTppf}
+		WHERE di_id = #{diId}
+	</update>
+	<insert id="saveElectricmeterHistory" parameterType="com.lain.entity.ElectricmeterHistory">
+		INSERT INTO
+		po_electricmeter_history(peh_Avol,peh_Acur,peh_Bvol,peh_Bcur,peh_Cvol,peh_Ccur,peh_Tpap,peh_elequantity,peh_elecharge,peh_quetime,peh_userdTime,peh_time,di_id)
+		VALUES
+		(#{pehAvol},#{pehAcur},#{pehBvol},#{pehBcur},#{pehCvol},#{pehCcur},#{pehTpap},#{pehElequantity},#{pehElecharge},#{pehQuetime},#{pehUserdTime},#{pehTime},#{diID})
+	</insert>
+	<select id="findIntervalTime">
+		SELECT intervalTime FORM po_electricmeter_manage
+		WHERE pem_address=#{pemAddress} AND di_id=#{diId}
+	</select>
+</mapper>

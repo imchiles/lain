@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.Ktr8060Mapper">
+	<select id="findKtrAddress" resultType="com.lain.entity.Ktr8060">
+		SELECT * FROM
+		ktr8060_manage WHERE di_id=#{diId} AND id=#{id}
+	</select>
+	<select id="findKtrAddressById" resultType="com.lain.entity.Ktr8060">
+		SELECT * FROM
+		ktr8060_manage km,device_ip di WHERE km.di_id=di.di_id AND
+		km.k_id=#{kId}
+	</select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.DeviceIpMapper">
+	
+	<!-- DEVICE_IP -->
+	<select id="findDeviceIpById" resultType="com.lain.entity.DeviceIp">
+		SELECT * FROM device_ip WHERE di_id=#{diId}
+	</select>
+	<select id="findDeviceIpAll" resultType="com.lain.entity.DeviceIp">
+		SELECT * FROM device_ip
+	</select>
+	<insert id="insertDeviceIpAll" parameterType="com.lain.entity.DeviceIp" useGeneratedKeys="true">
+    	INSERT INTO device_ip (di_address,di_port,sd_id) VALUE (#{diAddress},#{diPort},#{sdId})
+    </insert>
+    <update id="updateDeviceIpById" parameterType="com.lain.entity.DeviceIp">
+        UPDATE device_ip SET di_address=#{diAddress},di_port=#{diPort},di_isConnect=#{diIsConnect},di_operate=#{diOperate},d_id=#{dId},g_id=#{gId} WHERE di_id=#{diId}
+    </update>
+    <delete id="deleteDeviceIpById">
+        DELETE FROM device_ip WHERE di_id=#{diId}
+    </delete>
+	<update id="updIpConnectStatus">
+		UPDATE device_ip SET di_isConnect=#{diIsConnect},di_operate=#{diOperate}
+		<if test="diAddress!=null and diPort!=0">
+			WHERE di_address=#{diAddress} and di_port=#{diPort}
+		</if>
+	</update>
+    <!-- DEVICE -->
+    <select id="findDeviceAll" resultType="com.lain.entity.Device">
+		SELECT * FROM device
+	</select>
+	
+	<!-- DEVICE_ALARM -->
+	<select id="findDeviceAlarmAll" resultType="com.lain.entity.DeviceAlarm">
+		SELECT * FROM device_alarm
+	</select>
+	<update id="updateDeviceAlarmById" parameterType="com.lain.entity.DeviceAlarm">
+        UPDATE device_alarm SET timeQuantumOne=#{timeQuantumOne},timeQuantumTwo=#{timeQuantumTwo},timeQuantumThree=#{timeQuantumThree},emailStatus=#{emailStatus},smsStatus=#{smsStatus},soundLightStatus=#{soundLightStatus},phoneStatus=#{phoneStatus},intervalTime=#{intervalTime} WHERE da_id=#{daId}
+    </update>
+    
+</mapper>

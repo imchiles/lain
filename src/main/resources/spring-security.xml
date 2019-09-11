@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/security  
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- 不拦截的页面，我下面这行在我这个案例中没意义，可以设置一些静态资源 或 下面配置拦截所有请求的时候，选择不拦截登录页面 -->
+	<sec:http pattern="/login.jsp" security="none"></sec:http>
+	<sec:http auto-config="true">
+		<!-- 对/admin** 的url进行拦截，只有拥有ROLE_USER权限的用户才能进入 -->
+
+		<sec:intercept-url pattern="/admin"
+			access="ROLE_USER,ROLE_ADMIN,ROLE_SADMIN" />
+
+		<!-- login-page="/login.jsp" 拦截以后重定向到自定义的登录页面 authentication-failure-url="/login.jsp"登录的用户没有 
+			ROLE_USER权限跳转的页面 default-target-url="/admin" 登录的用户有 ROLE_USER权限跳转的页面 -->
+
+		<sec:form-login login-page="/login.jsp"
+			login-processing-url="/spring_security_check" username-parameter="username"
+			password-parameter="password" authentication-failure-url="/login.jsp"
+			default-target-url="/admin" />
+
+		<!-- 点击注销 跳转的页面 与 <a href="<c:url value="/logout" />" > 注销</a> 配合使用 -->
+
+		<sec:logout logout-url="/logout" logout-success-url="/login.jsp"
+			invalidate-session="true" delete-cookies="JSESSIONID"/>
+		<sec:session-management
+			session-fixation-protection="none">
+			<!-- max-sessions="1"：同一用户只能在一个浏览器登录，当尝试在其他浏览器登陆时将被拒绝 error-if-maximum-exceeded="true"：当设置了此属性，尝试在其他浏览器登录时，则原会话将被终止，将在新窗口建立新会话 -->
+			<sec:concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</sec:session-management>
+		<sec:session-management
+			session-authentication-strategy-ref="sas" /> 
+		<sec:remember-me />
+	</sec:http>
+
+	<sec:authentication-manager
+		erase-credentials="false">
+		<sec:authentication-provider
+			user-service-ref="myUserDetailServiceImpl">
+			<sec:password-encoder hash="md5" ref="passwordEncoder">
+				<sec:salt-source user-property="username" />
+			</sec:password-encoder>
+
+			<!-- <sec:user-service> 给root 用户 配置 "ROLE_USER" 权限 <sec:user name="root" 
+				password="123456" authorities="ROLE_USER" /> </sec:user-service> -->
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<sec:authentication-manager
+		erase-credentials="false">
+		<sec:authentication-provider ref="myAuthenticationProvider" />
+	</sec:authentication-manager>
+	
+	<bean id="myUserDetailServiceImpl" class="com.lain.security.myUserDetailServiceImpl" />
+	<bean id="myAuthenticationProvider" class="com.lain.security.myAuthenticationProvider"></bean>
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+		
+	<bean id="sas"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		<property name="maximumSessions" value="1" />
+		<!-- 防止session攻击 -->
+		<property name="alwaysCreateSession" value="true" />
+		<property name="migrateSessionAttributes" value="false" />
+		<!-- 同一个帐号 同时只能一个人登录 -->
+		<property name="exceptionIfMaximumExceeded" value="false" />
+	</bean>
+	
+	<bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+</beans> 
