@@ -77,6 +77,10 @@ public class IpConnect {
 			case 4:
 				SocketSendOrder.electricmenter(Ip, Port, orders, diId);
 				break;
+			case 9://定位漏水
+				//这里调用命令发送及返回处理
+				SocketSendOrder.location(Ip, Port, socket, orders, diId);
+				break;
 			default:
 				break;
 			}

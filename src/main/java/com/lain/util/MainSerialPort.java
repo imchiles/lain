@@ -18,12 +18,14 @@ import com.lain.dao.ElectricmeterMapper;
 import com.lain.dao.HumitureMapper;
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.dao.Ktr8060Mapper;
+import com.lain.dao.LocationMapper;
 import com.lain.entity.DeviceAlarm;
 import com.lain.entity.DeviceIp;
 import com.lain.entity.HumitureManage;
 import com.lain.master.ElectricmeterOrderRead;
 import com.lain.master.HumitureOrderRead;
 import com.lain.master.KTR8052OrderRead;
+import com.lain.master.LocationOrderRead;
 
 public class MainSerialPort implements InitializingBean, ServletContextAware{
 
@@ -47,6 +49,8 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 	
 	@Autowired
 	private ElectricmeterMapper electricmeterMapper;
+	
+	private LocationMapper LocationMapper;
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -89,6 +93,15 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				}
 				size = items.size();
 				break;
+			case 9://定位漏水
+				//items = 定位漏水寻找DiId
+				items = LocationMapper.findLocationAddress(deviceIp.getDiId());
+				for(Integer address : items){
+					byte[] back = Analysis.getLocationOrder(address);
+					orders.add(back);
+				}
+				size = items.size();
+				break;
 			default: 
 				System.out.println("程序出错");
 				break;
@@ -126,6 +139,7 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 		KTR8052OrderRead.setKtr8052Mapper(ktr8052Mapper);
 		ComUtil.setDevcieMapper(deviceIpMapper);
 		SocketUtil.setDeviceIpMapper(deviceIpMapper);
+		LocationOrderRead.setLocationMapper(LocationMapper);
 	}
 	public static void main(String[] args) {
 	}

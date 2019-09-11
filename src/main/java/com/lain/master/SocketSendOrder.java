@@ -67,4 +67,25 @@ public class SocketSendOrder {
 			}
 		});
 	}
+	
+	/** 定位漏水命令发送及返回处理*/
+	public static void location(final String Ip,final int Port,final SocketUtil socket,final List<byte[]> orders,final int diId) {
+		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+			public void run() {
+				while (IpConnect.ipPortMap.get(Ip+Port)) {
+					try {
+						for(int i=0;i<orders.size();i++){
+							byte[] back = socket.sendOrder(orders.get(i), Ip, Port);
+							if(back!=null /* && back.length==9*/){	//定位漏水模块
+								LocationOrderRead.getLocationBGO(back, diId);	//处理返回的数据
+							}
+						}
+						Thread.sleep(3000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
 }
