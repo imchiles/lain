@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.PoisonousMapper">
+	<select id="getPoisonous">
+		select distinct ecm_address from en_poisonous_manage where di_id=#{ipId}
+	</select>
+</mapper>

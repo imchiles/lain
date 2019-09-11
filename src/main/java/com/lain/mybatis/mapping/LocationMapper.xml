@@ -8,10 +8,10 @@
 	</select>
 	
 	<update id="updLocationStatusAndLen">
-		update en_location_manage set elm_status=?,elm_length=? where elm_address=? and di_id=?
+		update en_location_manage set elm_status=#{status},elm_length=#{length} where elm_address=#{address} and di_id=#{ipId}
 	</update>
 	
 	<select id="getLocation">
-		select elm_id,elm_name,sdl_name from en_location_manage as elm,sys_device_location as sdl where elm.sdl_id=sdl.sdl_id and elm.elm_address=? and elm.di_id=?
+		select elm_id,elm_name,sdl_name from en_location_manage as elm,sys_device_location as sdl where elm.sdl_id=sdl.sdl_id and elm.elm_address=#{address} and elm.di_id=#{ipId}
 	</select>
 </mapper>

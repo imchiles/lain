@@ -19,6 +19,7 @@ import com.lain.dao.HumitureMapper;
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.dao.Ktr8060Mapper;
 import com.lain.dao.LocationMapper;
+import com.lain.dao.PoisonousMapper;
 import com.lain.entity.DeviceAlarm;
 import com.lain.entity.DeviceIp;
 import com.lain.entity.HumitureManage;
@@ -50,7 +51,11 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 	@Autowired
 	private ElectricmeterMapper electricmeterMapper;
 	
+	@Autowired
 	private LocationMapper LocationMapper;
+	
+	@Autowired
+	private PoisonousMapper poisonousMapper;
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -98,6 +103,15 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 			case 9://定位漏水
 				//items = 定位漏水寻找DiId
 				items = LocationMapper.findLocationAddress(deviceIp.getDiId());
+				for(Integer address : items){
+					byte[] back = Analysis.getLocationOrder(address);
+					orders.add(back);
+				}
+				size = items.size();
+				break;
+			case 12://有毒气体报警
+				//items = 定位漏水寻找DiId
+				items = poisonousMapper.getPoisonous(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getLocationOrder(address);
 					orders.add(back);
