@@ -69,7 +69,7 @@ public class SocketSendOrder {
 	}
 	
 	/** 定位漏水命令发送及返回处理*/
-	public static void location(final String Ip,final int Port,final SocketUtil socket,final List<byte[]> orders,final int diId) {
+	public static void location(final String Ip,final int Port,final List<byte[]> orders,final int diId) {
 		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
 			public void run() {
 				while (IpConnect.ipPortMap.get(Ip+Port)) {
@@ -82,6 +82,28 @@ public class SocketSendOrder {
 						}
 						Thread.sleep(3000);
 					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+	
+	/** PM10命令返回处理,有毒气体*/
+	public static void poisonous(final String Ip,final int Port,final List<byte[]> orders,final int ipId){
+		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+			public void run(){
+				while (IpConnect.ipPortMap.get(Ip+Port)) {
+					try {
+						for(int i=0;i<orders.size();i++){
+							byte[] back = socket.sendOrder(orders.get(i), Ip,Port);
+							if(back!=null ){	
+//								System.out.println("----------------------有毒气体模块-----------------------"+i);
+								PoisonousOrderRead.getPoisonousBGO(back,ipId);	//处理返回的数据
+							}
+						}
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}

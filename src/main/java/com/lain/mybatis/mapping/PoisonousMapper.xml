@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
 	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
 <mapper namespace="com.lain.dao.PoisonousMapper">
-	<select id="getPoisonous">
+	<select id="findPoisonousAddress">
 		select distinct ecm_address from en_poisonous_manage where di_id=#{ipId}
+	</select>
+	
+	<update id="updPoisonousRealTimeData">
+		update en_poisonous_manage set ecm_currentData=#{currentData} where ecm_address=#{address} and di_id=#{ipId}
+	</update>
+	
+	<select>
+		select ecm_id,ecm_name,ecm_alarmData,sdl_name from en_poisonous_manage as ecm,sys_device_location as sdl where ecm.sdl_id=sdl.sdl_id and ecm.ecm_address=#{address} and di_id=#{ipId}
 	</select>
 </mapper>

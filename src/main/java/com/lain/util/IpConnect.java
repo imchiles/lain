@@ -79,7 +79,10 @@ public class IpConnect {
 				break;
 			case 9://定位漏水
 				//这里调用命令发送及返回处理
-				SocketSendOrder.location(Ip, Port, socket, orders, diId);
+				SocketSendOrder.location(Ip, Port, orders, diId);
+				break;
+			case 12://有毒气体
+				SocketSendOrder.poisonous(Ip, Port, orders, diId);
 				break;
 			default:
 				break;

@@ -111,9 +111,9 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				break;
 			case 12://有毒气体报警
 				//items = 定位漏水寻找DiId
-				items = poisonousMapper.getPoisonous(deviceIp.getDiId());
+				items = poisonousMapper.findPoisonousAddress(deviceIp.getDiId());
 				for(Integer address : items){
-					byte[] back = Analysis.getLocationOrder(address);
+					byte[] back = Analysis.getPoisonousOrder(address);
 					orders.add(back);
 				}
 				size = items.size();
