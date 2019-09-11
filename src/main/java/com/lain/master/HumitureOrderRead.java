@@ -28,7 +28,9 @@ public class HumitureOrderRead {
 	/** 获取温湿度的最大最小值 */
 	public static Map<String, Map<String, String>> LIMIT = null;
 
+	/** 温湿度上下限 */
 	public static Map<String, List<Double>> VALUE = new HashMap<String, List<Double>>();
+	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
 	
 	private static Calculagraph CALCULAGRAPH = new Calculagraph();

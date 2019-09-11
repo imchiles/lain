@@ -54,9 +54,11 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
+		/** 注入bean */
 		SetBean();
 		/**    IP初始化      **/
 		deviceIpMapper.updIpConnectStatus(0,0,null,0);
+		/** 温湿度上下限 */
 		HumTempValue();
 		List<DeviceAlarm> listda = deviceIpMapper.findDeviceAlarmAll();
 		AlarmTime at = new AlarmTime();
@@ -119,6 +121,8 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 	public void afterPropertiesSet() throws Exception {
 
 	}
+	
+	/** 温湿度上下限 */
 	public void HumTempValue(){
 		List<HumitureManage> lhm = humitureMapper.findHumitureManageAll();
 		for(HumitureManage hm : lhm){

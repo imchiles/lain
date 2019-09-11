@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import com.lain.entity.DeviceAlarm;
 
@@ -20,6 +19,7 @@ public class AlarmTime {
 
 	private int frontHour, frontMinute, backtHour, backMinute;
 
+	/** 报警处理  */
 	public boolean isAlarmtTime(){
 		boolean flag = false;
 		sdf = new SimpleDateFormat("EEEE");
@@ -34,11 +34,13 @@ public class AlarmTime {
 			frontMinute = Integer.parseInt(st0[1]);
 			backtHour = Integer.parseInt(st1[0]);
 			backMinute = Integer.parseInt(st1[1]);
+			//判断是否在报警阀值内
 			flag = (frontHour==nowHour||nowHour==backtHour)?((frontMinute<nowMinute&&nowMinute<backMinute)?true:false):((frontHour<nowHour&&nowHour<backtHour)?true:false);
 		}
 		return flag;
 	}
 
+	/** 注入报警阀值，注入暴击时间间隔 */
 	public void setAlarmInformation(List<DeviceAlarm> listda){
 		for(DeviceAlarm da : listda){
 			String[] s = new String[3];
