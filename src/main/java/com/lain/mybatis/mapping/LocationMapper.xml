@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.LocationMapper">
+	<!-- 这里还没有做修改。 -->
+	<select id="findLocationAddress">
+		select distinct elm_address from en_location_manage where di_id=#{diId}
+	</select>
+	
+	<update id="updLocationStatusAndLen">
+		update en_location_manage set elm_status=?,elm_length=? where elm_address=? and di_id=?
+	</update>
+	
+	<select id="getLocation">
+		select elm_id,elm_name,sdl_name from en_location_manage as elm,sys_device_location as sdl where elm.sdl_id=sdl.sdl_id and elm.elm_address=? and elm.di_id=?
+	</select>
+</mapper>
