@@ -6,6 +6,7 @@ public class Test {
 		System.out.println("helsadaslo Git");
 		System.out.println("helsadaslo Git");
 		System.out.println("helsadaslo Git");
+		System.out.println("²âÊÔ¸üĞÂ");
 		
 	}
 }
