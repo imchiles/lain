@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ServletContextAware;
 
 import com.lain.analysis.Analysis;
+import com.lain.dao.Co2Mapper;
 import com.lain.dao.DeviceIpMapper;
 import com.lain.dao.ElectricmeterMapper;
 import com.lain.dao.HumitureMapper;
@@ -23,10 +24,12 @@ import com.lain.dao.PoisonousMapper;
 import com.lain.entity.DeviceAlarm;
 import com.lain.entity.DeviceIp;
 import com.lain.entity.HumitureManage;
+import com.lain.master.Co2OrderRead;
 import com.lain.master.ElectricmeterOrderRead;
 import com.lain.master.HumitureOrderRead;
 import com.lain.master.KTR8052OrderRead;
 import com.lain.master.LocationOrderRead;
+import com.lain.master.PoisonousOrderRead;
 
 public class MainSerialPort implements InitializingBean, ServletContextAware{
 
@@ -52,10 +55,13 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 	private ElectricmeterMapper electricmeterMapper;
 	
 	@Autowired
-	private LocationMapper LocationMapper;
+	private LocationMapper locationMapper;
 	
 	@Autowired
 	private PoisonousMapper poisonousMapper;
+	
+	@Autowired
+	private Co2Mapper co2Mapper;
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -74,7 +80,7 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 			int size = 0;
 			List<Integer> items = new ArrayList<>();
 			switch (deviceIp.getdId()) {
-			case 1: 
+			case 1: //温湿度
 				items = humitureMapper.findHumitureAddress(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getHumitureOrder(address);
@@ -82,17 +88,19 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				}
 				size = items.size();
 				break;
-			case 2:
+			case 2://8052
 				items = ktr8052Mapper.findKtr8052Address(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getKtr8052Order(address);
 					orders.add(back);
 				}
 				size = items.size();
-			case 3:
+				//System.out.println(size);
+				break;
+			case 3://8060
 				Alarm.setKtr8060Mapper(ktr8060Mapper);
 				break;
-			case 4:
+			case 4://电量仪
 				items = electricmeterMapper.findElectricmeterById(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getElectricMeterOrder(address);
@@ -102,14 +110,22 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				break;
 			case 9://定位漏水
 				//items = 定位漏水寻找DiId
-				items = LocationMapper.findLocationAddress(deviceIp.getDiId());
+				items = locationMapper.findLocationAddress(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getLocationOrder(address);
 					orders.add(back);
 				}
 				size = items.size();
 				break;
-			case 12://有毒气体报警
+			case 10://二氧化碳
+				items = co2Mapper.findCo2Address(deviceIp.getDiId());
+				for(Integer address : items){
+					byte[] back = Analysis.getCo2Order(address);
+					orders.add(back);
+				}
+				size = items.size();
+				break;
+			case 12://有毒气体
 				//items = 定位漏水寻找DiId
 				items = poisonousMapper.findPoisonousAddress(deviceIp.getDiId());
 				for(Integer address : items){
@@ -149,15 +165,27 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 		}
 	}
 	
+	/**
+	 * 在下一层开始，bean无法注入，所以临时解决方案就是自己注入
+	 */
 	public void SetBean(){
 		IpConnect.setDeviceIpMapper(deviceIpMapper);
 		IpConnect.setHumitureMapper(humitureMapper);
+		IpConnect.setCo2Mapper(co2Mapper);
+		IpConnect.setElectricmeterMapper(electricmeterMapper);
+		IpConnect.setKtr8052Mapper(ktr8052Mapper);
+		IpConnect.setPoisonousMapper(poisonousMapper);
+		IpConnect.setLocationMapper(locationMapper);
+		IpConnect.setKtr8060Mapper(ktr8060Mapper);
+		
 		HumitureOrderRead.setHumitureMapper(humitureMapper);
 		ElectricmeterOrderRead.setElectricmeterMapper(electricmeterMapper);
 		KTR8052OrderRead.setKtr8052Mapper(ktr8052Mapper);
 		ComUtil.setDevcieMapper(deviceIpMapper);
 		SocketUtil.setDeviceIpMapper(deviceIpMapper);
-		LocationOrderRead.setLocationMapper(LocationMapper);
+		LocationOrderRead.setLocationMapper(locationMapper);
+		PoisonousOrderRead.setPoisonousMapper(poisonousMapper);
+		Co2OrderRead.setCo2Mapper(co2Mapper);
 	}
 	public static void main(String[] args) {
 	}

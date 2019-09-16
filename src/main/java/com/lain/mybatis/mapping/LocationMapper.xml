@@ -8,10 +8,10 @@
 	</select>
 	
 	<update id="updLocationStatusAndLen">
-		update en_location_manage set elm_status=#{status},elm_length=#{length} where elm_address=#{address} and di_id=#{ipId}
+		update en_location_manage set elm_status=#{elm_status},elm_length=#{elm_length} where elm_address=#{elm_address} and di_id=#{di_id}
 	</update>
 	
-	<select id="getLocation">
-		select elm_id,elm_name,sdl_name from en_location_manage as elm,sys_device_location as sdl where elm.sdl_id=sdl.sdl_id and elm.elm_address=#{address} and elm.di_id=#{ipId}
+	<select id="getLocation" resultType="com.lain.entity.LocationManagePojo">
+		select elm_id,elm_name from en_location_manage  where elm_address=#{elm_address} and di_id=#{di_id}
 	</select>
 </mapper>

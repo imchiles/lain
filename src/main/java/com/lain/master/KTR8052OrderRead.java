@@ -25,10 +25,17 @@ public class KTR8052OrderRead {
 		int address = getDeviceId(bytes[0]);
 		if((bytes[1]&0x02) == FUNCTION_CODE && (bytes[2]&0x01) == BITS_LENGTH){
 			for(int i=0; i<6; i++){
-				if(((bytes[3] >> i) & 0x01) == 0x01)
+				if(((bytes[3] >> i) & 0x01) == 0x01) {
+					System.out.println("DI"+i);
 					ktr8052Mapper.updataKtr8052Galery(1,"DI"+i, address, diId); 	//报警
-				else
+					System.out.println("报警");
+				}
+				else {
+					System.out.println("DI"+i);
 					ktr8052Mapper.updataKtr8052Galery(0,"DI"+i, address, diId);		//正常
+					System.out.println("正常");
+				}
+					
 			}
 		}
 	}

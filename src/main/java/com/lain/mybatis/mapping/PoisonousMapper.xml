@@ -7,10 +7,10 @@
 	</select>
 	
 	<update id="updPoisonousRealTimeData">
-		update en_poisonous_manage set ecm_currentData=#{currentData} where ecm_address=#{address} and di_id=#{ipId}
+		update en_poisonous_manage set ecm_currentData=#{ecm_currentData} where ecm_address=#{ecm_address} and di_id=#{di_id}
 	</update>
 	
-	<select>
-		select ecm_id,ecm_name,ecm_alarmData,sdl_name from en_poisonous_manage as ecm,sys_device_location as sdl where ecm.sdl_id=sdl.sdl_id and ecm.ecm_address=#{address} and di_id=#{ipId}
+	<select id="getPoisonous"  resultType="com.lain.entity.PoisonousManagePojo">
+		select ecm_id,ecm_name,ecm_alarmData from en_poisonous_manage where ecm_address=#{ecm_address} and di_id=#{di_id}
 	</select>
 </mapper>

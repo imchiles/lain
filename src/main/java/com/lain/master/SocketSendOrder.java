@@ -9,7 +9,7 @@ public class SocketSendOrder {
 	private static SocketUtil socket = new SocketUtil();
 	/** 温湿度感应器命令发送及返回处理*/
 	public static void humiture(final String Ip, final int Port, final List<byte[]> orders, final int diId) {
-		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run() {
 				while (IpConnect.ipPortMap.get(Ip+Port)) {
 					try {
@@ -28,13 +28,13 @@ public class SocketSendOrder {
 	}
 	/** 8052命令发送及返回处理*/
 	public static void ktr8052(final String Ip, final int Port, final List<byte[]> orders, final int diId) {
-		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run() {
-				while (IpConnect.ipPortMap.get(Ip+Port)) {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(byte[] order : orders){
 							byte[] back = socket.sendOrder(order, Ip, Port);
-							
+							System.out.println("第三步");
 							//返回6是根据8052模块返回的数据长度来确定的，如果不确定数据返回的长度，不可填入固定值
 							if(back!=null)
 								KTR8052OrderRead.getKTR8052BGO(back, diId);
@@ -48,9 +48,9 @@ public class SocketSendOrder {
 	}
 	/** 电量仪命令发送及返回处理*/
 	public static void electricmenter(final String Ip, final int Port,final List<byte[]> orders, final int diId) {
-		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run() {
-				while (IpConnect.ipPortMap.get(Ip+Port)) {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(byte[] order : orders){
 							byte[] back = socket.sendOrder(order, Ip, Port);
@@ -70,9 +70,9 @@ public class SocketSendOrder {
 	
 	/** 定位漏水命令发送及返回处理*/
 	public static void location(final String Ip,final int Port,final List<byte[]> orders,final int diId) {
-		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run() {
-				while (IpConnect.ipPortMap.get(Ip+Port)) {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(int i=0;i<orders.size();i++){
 							byte[] back = socket.sendOrder(orders.get(i), Ip, Port);
@@ -89,11 +89,32 @@ public class SocketSendOrder {
 		});
 	}
 	
+	/** 二氧化碳命令返回处理*/
+	public static void co2(final String Ip,final int Port,final List<byte[]> orders,final int diId) {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
+			public void run() {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
+					try {
+						for(int i=0;i<orders.size();i++){
+							byte[] back = socket.sendOrder(orders.get(i), Ip, Port);
+							if(back!=null /* && back.length==9*/){	
+								Co2OrderRead.getCo2BGO(back, diId);	//处理返回的数据
+							}
+						}
+						Thread.sleep(3000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+	
 	/** PM10命令返回处理,有毒气体*/
 	public static void poisonous(final String Ip,final int Port,final List<byte[]> orders,final int ipId){
-		IpConnect.threadMap.get(Ip+Port).execute(new Runnable() {
+		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run(){
-				while (IpConnect.ipPortMap.get(Ip+Port)) {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(int i=0;i<orders.size();i++){
 							byte[] back = socket.sendOrder(orders.get(i), Ip,Port);

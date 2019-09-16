@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
+	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
+<mapper namespace="com.lain.dao.Co2Mapper">
+	<select id="findCo2Address">
+		select distinct ecm_address from en_co2_manage where di_id=#{diId}
+	</select>
+	
+	<update id="updCo2RealTimeData">
+		update en_co2_manage set ecm_currentData=#{ecm_currentData} where ecm_address=#{ecm_address} and di_id=#{di_id}
+	</update>
+	
+	<select id="getCo2" resultType="com.lain.entity.Co2ManagePojo">
+		select ecm_id,ecm_name,ecm_alarmData from en_co2_manage where ecm_address=#{ecm_address} and di_id=#{di_id}
+	</select>
+</mapper>

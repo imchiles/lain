@@ -12,9 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lain.analysis.Analysis;
+import com.lain.dao.Co2Mapper;
 import com.lain.dao.DeviceIpMapper;
+import com.lain.dao.ElectricmeterMapper;
 import com.lain.dao.HumitureMapper;
+import com.lain.dao.Ktr8052Mapper;
+import com.lain.dao.Ktr8060Mapper;
+import com.lain.dao.LocationMapper;
+import com.lain.dao.PoisonousMapper;
 import com.lain.entity.DeviceIp;
+import com.lain.master.Co2OrderRead;
+import com.lain.master.ElectricmeterOrderRead;
+import com.lain.master.HumitureOrderRead;
+import com.lain.master.KTR8052OrderRead;
+import com.lain.master.LocationOrderRead;
+import com.lain.master.PoisonousOrderRead;
 import com.lain.master.SocketSendOrder;
 import com.lain.util.ComUtil;
 import com.lain.util.SocketUtil;
@@ -25,6 +37,12 @@ public class IpConnect {
 
 	public static DeviceIpMapper deviceIpMapper;
 	public static HumitureMapper humitureMapper;
+	public static Ktr8052Mapper ktr8052Mapper;
+	public static Ktr8060Mapper ktr8060Mapper;
+	public static ElectricmeterMapper electricmeterMapper;
+	public static LocationMapper LocationMapper;
+	public static PoisonousMapper poisonousMapper;
+	public static Co2Mapper Co2Mapper;
 	public static Map<String,ExecutorService> threadMap = new HashMap<String,ExecutorService>();
 	public static Map<String,Boolean> ipPortMap = new HashMap<String,Boolean>();
 	public static ExecutorService singleThreadExecutor = null;
@@ -36,12 +54,55 @@ public class IpConnect {
 		List<byte[]> orders = new ArrayList<byte[]>();
 		boolean result = false;
 		int size = 0;
+		List<Integer> items;
 		switch (deviceIp.getdId()) {
 		case 1:
-			List<Integer> items = humitureMapper.findHumitureAddress(deviceIp.getDiId());
+			items = humitureMapper.findHumitureAddress(deviceIp.getDiId());
 			System.out.println(items.toString());
 			for(Integer address : items){
 				byte[] back = Analysis.getHumitureOrder(address);
+				orders.add(back);
+			}
+			size = items.size();
+			break;
+		case 2://8052
+			items = ktr8052Mapper.findKtr8052Address(deviceIp.getDiId());
+			for(Integer address : items){
+				byte[] back = Analysis.getKtr8052Order(address);
+				orders.add(back);
+			}
+			size = items.size();
+			break;
+		case 4:// 定量仪
+			items = electricmeterMapper.findElectricmeterById(deviceIp.getDiId());
+			for (Integer address : items) {
+				byte[] back = Analysis.getElectricMeterOrder(address);
+				orders.add(back);
+			}
+			size = items.size();
+			break;
+		case 9:// 定位漏水
+				// items = 定位漏水寻找DiId
+			items = LocationMapper.findLocationAddress(deviceIp.getDiId());
+			for (Integer address : items) {
+				byte[] back = Analysis.getLocationOrder(address);
+				orders.add(back);
+			}
+			size = items.size();
+			break;
+		case 10:// 二氧化碳
+			items = Co2Mapper.findCo2Address(deviceIp.getDiId());
+			for (Integer address : items) {
+				byte[] back = Analysis.getCo2Order(address);
+				orders.add(back);
+			}
+			size = items.size();
+			break;
+		case 12:// 有毒气体
+			// items = 定位漏水寻找DiId
+			items = poisonousMapper.findPoisonousAddress(deviceIp.getDiId());
+			for (Integer address : items) {
+				byte[] back = Analysis.getPoisonousOrder(address);
 				orders.add(back);
 			}
 			size = items.size();
@@ -50,9 +111,9 @@ public class IpConnect {
 			break;
 		}
 		result = connectIp(deviceIp.getDiAddress(), deviceIp.getDiPort(),orders, deviceIp.getDiId(), deviceIp.getdId(),deviceIp.getgId());
-
 		return size==0?"没有设备可以开启通讯":(result?"开启成功":"开启失败");
 	}
+	
 	public static boolean connectIp(String Ip, int Port,List<byte[]> orders,int diId,int number,long sn){
 		boolean result = false;
 		if("COM".equals(Ip.substring(0, 3))){
@@ -71,16 +132,17 @@ public class IpConnect {
 			case 1:	//温湿度设备
 				SocketSendOrder.humiture(Ip,Port, orders, diId);
 				break;
-			case 2:
+			case 2://8052
 				SocketSendOrder.ktr8052(Ip,Port, orders, diId);
 				break;
-			case 4:
+			case 4://电量仪
 				SocketSendOrder.electricmenter(Ip, Port, orders, diId);
 				break;
 			case 9://定位漏水
-				//这里调用命令发送及返回处理
 				SocketSendOrder.location(Ip, Port, orders, diId);
 				break;
+			case 10://二氧化碳
+				SocketSendOrder.co2(Ip, Port, orders, diId);
 			case 12://有毒气体
 				SocketSendOrder.poisonous(Ip, Port, orders, diId);
 				break;
@@ -111,11 +173,43 @@ public class IpConnect {
 		/** 更新通信及操作状态*/
 		deviceIpMapper.updIpConnectStatus(0, 0,deviceIp.getDiAddress(),deviceIp.getDiPort());
 	}
+	
+	/**
+	 * 临时这么解决，后面用改框架配置解决
+	 * @param deviceIpMapper
+	 */
 	public static void setDeviceIpMapper(DeviceIpMapper deviceIpMapper) {
 		IpConnect.deviceIpMapper = deviceIpMapper;
 	}
 	public static void setHumitureMapper(HumitureMapper humitureMapper) {
 		IpConnect.humitureMapper = humitureMapper;
 	}
+
+	public static void setKtr8052Mapper(Ktr8052Mapper ktr8052Mapper) {
+		IpConnect.ktr8052Mapper = ktr8052Mapper;
+	}
+
+	public static void setKtr8060Mapper(Ktr8060Mapper ktr8060Mapper) {
+		IpConnect.ktr8060Mapper = ktr8060Mapper;
+	}
+
+	public static void setElectricmeterMapper(ElectricmeterMapper electricmeterMapper) {
+		IpConnect.electricmeterMapper = electricmeterMapper;
+	}
+
+	public static void setLocationMapper(LocationMapper locationMapper) {
+		LocationMapper = locationMapper;
+	}
+
+	public static void setPoisonousMapper(PoisonousMapper poisonousMapper) {
+		IpConnect.poisonousMapper = poisonousMapper;
+	}
+
+	public static void setCo2Mapper(Co2Mapper co2Mapper) {
+		Co2Mapper = co2Mapper;
+	}
+	
+	
+	
 
 }	
