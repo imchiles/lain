@@ -21,8 +21,8 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	private Ktr8052Mapper ktr8052Mapper;
 
 	@Override
-	public Ktr8052 getKtr8052(int id) throws Exception {
-		return ktr8052Mapper.getKtr8052(id);
+	public List<Ktr8052> getKtr8052() throws Exception {
+		return ktr8052Mapper.getKtr8052();
 	}
 
 	@Override

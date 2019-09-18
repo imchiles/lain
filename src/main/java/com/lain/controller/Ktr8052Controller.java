@@ -27,9 +27,9 @@ public class Ktr8052Controller {
 	private Ktr8052Service ktr8052Service;
 	
 	@ResponseBody
-	@RequestMapping(value = "getKtr8052/{id}",method = RequestMethod.GET)
-	public Ktr8052 getKtr8052(@PathVariable("id") int id) throws Exception {
-		return ktr8052Service.getKtr8052(id);
+	@RequestMapping(value = "getKtr8052",method = RequestMethod.GET)
+	public List<Ktr8052> getKtr8052() throws Exception {
+		return ktr8052Service.getKtr8052();
 	}
 	
 	@ResponseBody

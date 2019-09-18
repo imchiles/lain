@@ -11,7 +11,7 @@ import com.lain.entity.LocationManagePojo;
 
 public interface Ktr8052Service {
 	
-	Ktr8052 getKtr8052(int id) throws Exception;
+	List<Ktr8052> getKtr8052() throws Exception;
 	Ktr8052 findKtr8052All(int d_id)throws Exception;
 	int insertAlarm(String name,String time,String gallery)throws Exception;
 	List<Ktr8052Alarm> findKtr8052Alarm() throws Exception;

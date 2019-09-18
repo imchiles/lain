@@ -13,11 +13,13 @@ public interface Ktr8052Mapper {
 								@Param("gallery") String gallery,
 								@Param("address") int address,
 								@Param("diId") int diId);
-	Ktr8052 getKtr8052(int id);
+	List<Ktr8052> getKtr8052();
 	
 	Ktr8052 findKtr8052All(int d_id);
 	
 	int insertAlarm(@Param("name")String name,@Param("time")String time,@Param("gallery")String gallery);
 	
 	List<Ktr8052Alarm> findKtr8052Alarm();
+	
+	String selectKtr8052Name(String gallery);
 }

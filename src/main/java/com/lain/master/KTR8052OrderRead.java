@@ -36,16 +36,18 @@ public class KTR8052OrderRead {
 					System.out.println("报警");
 					long alarmTime = System.currentTimeMillis();
 					String time = Time.getTimeymd();//报警时间
-					System.out.println(alarmTime);
 					TimePojo timePojo = new TimePojo();
+					
 					if(map.get("alarmTime") == null) {
 						timePojo.setAlarmTime(alarmTime);
 						map.put("alarmTime", timePojo);//说明没存过，执行第一次存进去时间
-						ktr8052Mapper.insertAlarm("非定位", time, "DI"+i);//保存报警信息
+						String ktr8052Name = ktr8052Mapper.selectKtr8052Name("DI"+i);
+						ktr8052Mapper.insertAlarm(ktr8052Name, time, "DI"+i);//保存报警信息
 					}
 					TimePojo newTimePojo = map.get("alarmTime");
 					if(System.currentTimeMillis() - newTimePojo.getAlarmTime() > codeOutTime) {
-						ktr8052Mapper.insertAlarm("非定位", time, "DI"+i);//保存报警信息
+						String ktr8052Name = ktr8052Mapper.selectKtr8052Name("DI"+i);
+						ktr8052Mapper.insertAlarm(ktr8052Name, time, "DI"+i);//保存报警信息
 						timePojo.setAlarmTime(System.currentTimeMillis());
 						map.put("alarmTime", timePojo);//存进去
 					}
