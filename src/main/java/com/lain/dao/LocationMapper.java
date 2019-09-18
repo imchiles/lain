@@ -14,4 +14,6 @@ public interface LocationMapper {
 	
 	/** 通过设备地址获取定位漏水的名称及所在地址*/
 	public LocationManagePojo getLocation(@Param("elm_address")int elm_address,@Param("di_id")int di_id);
+	
+	public List<LocationManagePojo> selectLocationAll();
 }

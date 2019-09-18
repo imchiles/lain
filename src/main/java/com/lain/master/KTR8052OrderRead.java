@@ -1,6 +1,8 @@
 package com.lain.master;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.util.SocketUtil;
@@ -15,6 +17,8 @@ public class KTR8052OrderRead {
 
 	public static byte FUNCTION_CODE = 0X02;	//功能码
 	public static byte BITS_LENGTH = 0X01;		//字节长度
+	private final static Map<String, String> userCodeMap = new HashMap<String,String>();
+    private final static long codeOutTime = 5*60*1000;  //验证码过期时间
 	
 	private static Ktr8052Mapper ktr8052Mapper;
 	
@@ -24,16 +28,18 @@ public class KTR8052OrderRead {
 //		System.out.println("ktr8052order:"+TypeConvert.byteArrayToString(bytes));
 		int address = getDeviceId(bytes[0]);
 		if((bytes[1]&0x02) == FUNCTION_CODE && (bytes[2]&0x01) == BITS_LENGTH){
-			for(int i=0; i<6; i++){
+			for(int i=0; i<2; i++){
 				if(((bytes[3] >> i) & 0x01) == 0x01) {
-					System.out.println("DI"+i);
+					//System.out.println("DI"+i);
 					ktr8052Mapper.updataKtr8052Galery(1,"DI"+i, address, diId); 	//报警
 					System.out.println("报警");
+					long time = System.currentTimeMillis();
+					ktr8052Mapper.insertAlarm("非定位", "17:12", "DI"+i);//保存报警信息
 				}
 				else {
-					System.out.println("DI"+i);
+					//System.out.println("DI"+i);
 					ktr8052Mapper.updataKtr8052Galery(0,"DI"+i, address, diId);		//正常
-					System.out.println("正常");
+					//System.out.println("正常");
 				}
 					
 			}

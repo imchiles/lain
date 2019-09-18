@@ -13,4 +13,8 @@ public interface Ktr8052Mapper {
 								@Param("address") int address,
 								@Param("diId") int diId);
 	Ktr8052 getKtr8052(int id);
+	
+	Ktr8052 findKtr8052All(int d_id);
+	
+	int insertAlarm(@Param("name")String name,@Param("time")String time,@Param("gallery")String gallery);
 }

@@ -23,14 +23,18 @@ public class LocationOrderRead {
 		if(bytes[1] == FUNCTION_CODE && bytes[2] == BITS_LENGTH){
 			int address = getDeviceId(bytes[0]);
 			if(bytes[4] == 0x00){		//设备正常,更新状态
+				System.out.println("good");
 				locationMapper.updLocationStatusAndLen(0, 0, address, ipId);
 				//location.updLocationStatusAndLen(0, 0, address,ipId);
 				
 			} else if(bytes[4] == 0x01){	//设备检测到有漏水
 				double length = getDate(bytes[5],bytes[6]);
+				length = length * 10;
+				System.out.println(length);
+				System.out.println("bad");
 				locationMapper.updLocationStatusAndLen(1, length, address, ipId);
 				//location.updLocationStatusAndLen(1, lenght, address,ipId);
-				selectAlarmWay(length,address,ipId);		//保存温湿度报警记录
+				//selectAlarmWay(length,address,ipId);		//保存温湿度报警记录
 			}
 		}
 	}
@@ -38,14 +42,16 @@ public class LocationOrderRead {
 	/**
 	 * 选择定位漏水报警方式,保存温湿度报警记录
 	 */
-	public static void selectAlarmWay(double lenght,int address,int ipId){
+	public static void selectAlarmWay(double length,int address,int ipId){
 		String number = Integer.toString(ipId)+Integer.toString(address);
+		//System.out.println(number+"----number");
+		//System.out.println(address + "  " +ipId);
 		LocationManagePojo lmp = locationMapper.getLocation(address,ipId);
-		int id = lmp.getId();
-		String locationName = lmp.getDeviceLocationPojo().getDlName();
-		String name = lmp.getName();
-		String info = "检测到"+locationName+"-"+name+"-"+"报警距离为："+lenght;
-		System.out.println(info);
+		int elm_id = lmp.getElm_id();
+		System.out.println(elm_id+"---id");
+		String name = lmp.getElm_name();
+		//String info = "检测到"-"+name+"-"+"报警距离为："+length;
+		//System.out.println(info);
 		//下面为其他操作，先注释掉。
 		/*boolean tempFlag = IntervalTime.CheckTime(number,AlarmStatus.ALARMINTERVAL);
 		if(tempFlag){

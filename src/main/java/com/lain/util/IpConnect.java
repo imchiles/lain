@@ -135,6 +135,8 @@ public class IpConnect {
 			case 2://8052
 				SocketSendOrder.ktr8052(Ip,Port, orders, diId);
 				break;
+			case 5:
+				break;
 			case 4://µÁ¡ø“«
 				SocketSendOrder.electricmenter(Ip, Port, orders, diId);
 				break;

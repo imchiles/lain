@@ -95,7 +95,7 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 					orders.add(back);
 				}
 				size = items.size();
-				//System.out.println(size);
+				System.out.println(size);
 				break;
 			case 3://8060
 				Alarm.setKtr8060Mapper(ktr8060Mapper);
@@ -126,7 +126,6 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				size = items.size();
 				break;
 			case 12://有毒气体
-				//items = 定位漏水寻找DiId
 				items = poisonousMapper.findPoisonousAddress(deviceIp.getDiId());
 				for(Integer address : items){
 					byte[] back = Analysis.getPoisonousOrder(address);

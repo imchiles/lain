@@ -19,11 +19,13 @@ public class Alarm {
 	
 	/**控制单个开关*/
 	public static void SwitchOne (int diId, String ip, int port, int id) {
+		/**找到需要开哪个8060开关*/
 		KTR8060 = ktr8060Mapper.findKtrAddress(diId, id);
+		/**打开通讯*/
 		SOCKET.openSocket(ip, port);
 		OPEN = Analysis.getKtr8060OpenOrder(KTR8060.getAddress(), KTR8060.getGallery());
 		CLOSE = Analysis.getKtr8060CloseOrder(KTR8060.getAddress(), KTR8060.getGallery());
-		Switch.soundSwitch(ip+port, SOCKET, OPEN, CLOSE);
+		Switch.soundSwitch(ip + ":" + port, SOCKET, OPEN, CLOSE);
 		SOCKET.closeSocket(ip, port);
 	}
 	

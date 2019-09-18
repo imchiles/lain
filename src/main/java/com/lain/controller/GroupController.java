@@ -16,6 +16,8 @@ import com.lain.service.GroupService;
 public class GroupController {
 	@Autowired
 	private GroupService groupService;
+	
+	
 	@RequestMapping(value="/findGroupAll",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Group> findGroupAll(){

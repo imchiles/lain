@@ -28,8 +28,9 @@ public class Switch {
 		try {
 			phoneOrder = socket.sendOrder(by,ipPort.split(":")[0],Integer.parseInt(ipPort.split(":")[1]));
 			//发送失败重新发送5次
-			if (phoneOrder==null || !by.equals(phoneOrder)) {
-				for (int j=0; j<5; j++) {
+			System.out.println(phoneOrder.length);
+			if (phoneOrder.length > 0) {
+				for (int j=0; j<1; j++) {
 					phoneOrder = socket.sendOrder(by,ipPort.split(":")[0],Integer.parseInt(ipPort.split(":")[1]));
 					//发送成功跳出方法
 					if(phoneOrder!=null && by.equals(phoneOrder)){

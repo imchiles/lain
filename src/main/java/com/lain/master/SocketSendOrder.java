@@ -34,11 +34,11 @@ public class SocketSendOrder {
 					try {
 						for(byte[] order : orders){
 							byte[] back = socket.sendOrder(order, Ip, Port);
-							System.out.println("第三步");
 							//返回6是根据8052模块返回的数据长度来确定的，如果不确定数据返回的长度，不可填入固定值
 							if(back!=null)
 								KTR8052OrderRead.getKTR8052BGO(back, diId);
 						}
+						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -76,11 +76,11 @@ public class SocketSendOrder {
 					try {
 						for(int i=0;i<orders.size();i++){
 							byte[] back = socket.sendOrder(orders.get(i), Ip, Port);
-							if(back!=null /* && back.length==9*/){	//定位漏水模块
+							if(back!=null  && back.length==9){	//定位漏水模块
 								LocationOrderRead.getLocationBGO(back, diId);	//处理返回的数据
 							}
 						}
-						Thread.sleep(3000);
+						Thread.sleep(5000);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -27,5 +27,10 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
 
     </settings>
+    
+    <typeAliases>  
+         <!--这里给实体类取别名，方便在mapper配置文件中使用--> 
+         <package name="com.lain.entity"/>
+     </typeAliases> 
 
 </configuration>

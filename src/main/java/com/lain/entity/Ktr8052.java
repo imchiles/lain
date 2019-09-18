@@ -1,6 +1,6 @@
 package com.lain.entity;
 
-public class Ktr8052 {
+public class Ktr8052 extends DeviceIp{
 	private int id;
 	private String name;
 	private int address;
@@ -8,6 +8,13 @@ public class Ktr8052 {
 	private int status;
 	private int kId;
 	private int diId;
+	private String k_name;
+	public String getK_name() {
+		return k_name;
+	}
+	public void setK_name(String k_name) {
+		this.k_name = k_name;
+	}
 	public int getId() {
 		return id;
 	}
