@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
+import com.lain.entity.Ktr8052Alarm;
 import com.lain.entity.LocationManagePojo;
 import com.lain.service.Ktr8052Service;
 import com.lain.service.LocationService;
@@ -35,6 +36,12 @@ public class Ktr8052Controller {
 	@RequestMapping(value = "findKtr8052All/{d_id}",method = RequestMethod.GET)
 	public Ktr8052 findKtr8052All(@PathVariable("d_id") int d_id) throws Exception {
 		return ktr8052Service.findKtr8052All(d_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "findKtr8052Alarm",method = RequestMethod.GET)
+	public List<Ktr8052Alarm> findKtr8052All() throws Exception {
+		return ktr8052Service.findKtr8052Alarm();
 	}
 
 }

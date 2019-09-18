@@ -11,7 +11,7 @@
 		SELECT * FROM device_ip
 	</select>
 	<insert id="insertDeviceIpAll" parameterType="com.lain.entity.DeviceIp" useGeneratedKeys="true">
-    	INSERT INTO device_ip (di_address,di_port,sd_id) VALUE (#{diAddress},#{diPort},#{sdId})
+    	INSERT INTO device_ip (di_address,di_port,d_id,g_id) VALUE (#{diAddress},#{diPort},#{dId},#{gId})
     </insert>
     <update id="updateDeviceIpById" parameterType="com.lain.entity.DeviceIp">
         UPDATE device_ip SET di_address=#{diAddress},di_port=#{diPort},di_isConnect=#{diIsConnect},di_operate=#{diOperate},d_id=#{dId},g_id=#{gId} WHERE di_id=#{diId}

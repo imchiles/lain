@@ -20,7 +20,12 @@
 		a.di_id = b.di_id and a.k_id = c.k_id
 	</select>
 	
-	<insert id="insertAlarm" resultType="int">
+	<insert id="insertAlarm">
 		insert into ktr8052_alarm(name,time,gallery) values(#{name},#{time},#{gallery})
 	</insert>
+	
+	<select id="findKtr8052Alarm" resultType="com.lain.entity.Ktr8052Alarm">
+		select * from ktr8052_alarm
+	</select>
+	
 </mapper>

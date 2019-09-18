@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lain.dao.Ktr8052Mapper;
+import com.lain.entity.TimePojo;
 import com.lain.util.SocketUtil;
+import com.lain.util.Time;
 
 
 /**
@@ -17,8 +19,8 @@ public class KTR8052OrderRead {
 
 	public static byte FUNCTION_CODE = 0X02;	//功能码
 	public static byte BITS_LENGTH = 0X01;		//字节长度
-	private final static Map<String, String> userCodeMap = new HashMap<String,String>();
-    private final static long codeOutTime = 5*60*1000;  //验证码过期时间
+	private final static Map<String, TimePojo> map = new HashMap<String,TimePojo>();
+    private final static long codeOutTime = 15*60*1000;  //验证码过期时间
 	
 	private static Ktr8052Mapper ktr8052Mapper;
 	
@@ -30,11 +32,23 @@ public class KTR8052OrderRead {
 		if((bytes[1]&0x02) == FUNCTION_CODE && (bytes[2]&0x01) == BITS_LENGTH){
 			for(int i=0; i<2; i++){
 				if(((bytes[3] >> i) & 0x01) == 0x01) {
-					//System.out.println("DI"+i);
 					ktr8052Mapper.updataKtr8052Galery(1,"DI"+i, address, diId); 	//报警
 					System.out.println("报警");
-					long time = System.currentTimeMillis();
-					ktr8052Mapper.insertAlarm("非定位", "17:12", "DI"+i);//保存报警信息
+					long alarmTime = System.currentTimeMillis();
+					String time = Time.getTimeymd();//报警时间
+					System.out.println(alarmTime);
+					TimePojo timePojo = new TimePojo();
+					if(map.get("alarmTime") == null) {
+						timePojo.setAlarmTime(alarmTime);
+						map.put("alarmTime", timePojo);//说明没存过，执行第一次存进去时间
+						ktr8052Mapper.insertAlarm("非定位", time, "DI"+i);//保存报警信息
+					}
+					TimePojo newTimePojo = map.get("alarmTime");
+					if(System.currentTimeMillis() - newTimePojo.getAlarmTime() > codeOutTime) {
+						ktr8052Mapper.insertAlarm("非定位", time, "DI"+i);//保存报警信息
+						timePojo.setAlarmTime(System.currentTimeMillis());
+						map.put("alarmTime", timePojo);//存进去
+					}
 				}
 				else {
 					//System.out.println("DI"+i);
