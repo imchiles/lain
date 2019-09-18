@@ -26,18 +26,21 @@ public class Ktr8052Controller {
 	@Autowired
 	private Ktr8052Service ktr8052Service;
 	
+	//获取8052设备信息
 	@ResponseBody
 	@RequestMapping(value = "getKtr8052",method = RequestMethod.GET)
 	public List<Ktr8052> getKtr8052() throws Exception {
 		return ktr8052Service.getKtr8052();
 	}
 	
+	//获取包括IP地址端口号的信息
 	@ResponseBody
 	@RequestMapping(value = "findKtr8052All/{d_id}",method = RequestMethod.GET)
 	public Ktr8052 findKtr8052All(@PathVariable("d_id") int d_id) throws Exception {
 		return ktr8052Service.findKtr8052All(d_id);
 	}
 	
+	//获取8052报警信息
 	@ResponseBody
 	@RequestMapping(value = "findKtr8052Alarm",method = RequestMethod.GET)
 	public List<Ktr8052Alarm> findKtr8052All() throws Exception {
