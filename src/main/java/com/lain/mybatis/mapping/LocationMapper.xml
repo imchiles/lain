@@ -19,7 +19,16 @@
 		 where elm_address=#{elm_address} and di_id=#{di_id}
 	</update>
 	
-	<select id="getLocationAll" resultType="com.lain.entity.LocationPojo">
-		select * from location_manage
+	<resultMap type="com.lain.entity.LocationManage" id="LocationResult">
+        <id property="elm_id" column="elm_id"/>
+        <id property="elm_name" column="elm_name"/>
+        <id property="elm_address" column="elm_address"/>
+        <id property="elm_length" column="elm_length"/>
+        <id property="elm_status" column="elm_status"/>
+        <id property="di_id" column="di_id"/>
+    </resultMap>
+	
+	<select id="getLocationAll" resultMap="LocationResult">
+		SELECT * FROM location_manage
 	</select>
 </mapper>

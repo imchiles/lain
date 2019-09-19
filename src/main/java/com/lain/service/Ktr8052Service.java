@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
-import com.lain.entity.LocationPojo;
 import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 
 public interface Ktr8052Service {

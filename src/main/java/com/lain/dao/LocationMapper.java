@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.lain.entity.LocationPojo;
+import com.lain.entity.LocationManage;
 
 public interface LocationMapper {
 	
@@ -14,11 +14,11 @@ public interface LocationMapper {
 			@Param("elm_status")int elm_status, 
 			@Param("elm_length")double elm_length,
 			@Param("elm_address")int elm_address, 
-			@Param("elm_di_id")int di_id)throws Exception;
+			@Param("di_id")int di_id)throws Exception;
 
-	LocationPojo getLocation(
+	LocationManage getLocation(
 			@Param("elm_address")int elm_address,
 			@Param("di_id")int di_id)throws Exception;
 	
-	List<LocationPojo> getLocationAll()throws Exception;
+	List<LocationManage> getLocationAll()throws Exception;
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
-import com.lain.entity.LocationPojo;
 import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 import com.lain.service.Ktr8052Service;
 

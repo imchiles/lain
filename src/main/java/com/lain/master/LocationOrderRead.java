@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import com.lain.analysis.TypeConvert;
 import com.lain.dao.LocationMapper;
-import com.lain.entity.LocationPojo;
+import com.lain.entity.LocationManage;
 
 
 public class LocationOrderRead {
@@ -56,7 +56,7 @@ public class LocationOrderRead {
 		String number = Integer.toString(ipId)+Integer.toString(address);
 		//System.out.println(number+"----number");
 		//System.out.println(address + "  " +ipId);
-		LocationPojo lmp =null;
+		LocationManage lmp =null;
 		try {
 			lmp = locationMapper.getLocation(address,ipId);
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.lain.entity;
 
-public class LocationPojo {
+public class LocationManage {
 	
 	private int elm_id;
 	private String elm_name;
