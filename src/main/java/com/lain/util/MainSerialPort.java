@@ -110,7 +110,12 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 				break;
 			case 9://定位漏水
 				//items = 定位漏水寻找DiId
-				items = locationMapper.findLocationAddress(deviceIp.getDiId());
+				try {
+					items = locationMapper.findLocationAddress(deviceIp.getDiId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				for(Integer address : items){
 					byte[] back = Analysis.getLocationOrder(address);
 					orders.add(back);

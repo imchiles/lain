@@ -2,20 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//Mybatis.org//DTD Mapper 3.0//EN" 
 	"http://Mybatis.org/dtd/Mybatis-3-mapper.dtd">
 <mapper namespace="com.lain.dao.LocationMapper">
-<!-- 这里还没有做修改。 -->
 	<select id="findLocationAddress" resultType="int">
-		select distinct elm_address from en_location_manage where di_id=#{diId}
+		select distinct elm_address from location_manage where di_id=#{di_id}
 	</select>
 	
-	<update id="updLocationStatusAndLen">
-		update en_location_manage set elm_status=#{elm_status},elm_length=#{elm_length} where elm_address=#{elm_address} and di_id=#{di_id}
+	<!-- 这里暂时不做修改，还没有用到 -->
+	<select id="getLocation">
+		select elm_id,elm_name,sdl_name 
+		from location_manage as elm,sys_device_location as sdl
+		 where elm.sdl_id=sdl.sdl_id and elm.elm_address=#{elm_address} and elm.di_id=#{di_id}
+	</select>
+	
+	<update id="updateLocationStatusAndLen">
+		update location_manage 
+		set elm_status=#{elm_status},elm_length=#{elm_length}
+		 where elm_address=#{elm_address} and di_id=#{di_id}
 	</update>
 	
-	<select id="getLocation" resultType="com.lain.entity.LocationManagePojo">
-		select * from en_location_manage  where elm_address=#{elm_address} and di_id=#{di_id}
-	</select>
-	
-	<select id="selectLocationAll" resultType="com.lain.entity.LocationManagePojo">
-		select * from en_location_manage  
+	<select id="getLocationAll" resultType="com.lain.entity.LocationPojo">
+		select * from location_manage
 	</select>
 </mapper>

@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import com.lain.analysis.TypeConvert;
 import com.lain.dao.LocationMapper;
-import com.lain.entity.LocationManagePojo;
+import com.lain.entity.LocationPojo;
 
 
 public class LocationOrderRead {
@@ -24,7 +24,12 @@ public class LocationOrderRead {
 			int address = getDeviceId(bytes[0]);
 			if(bytes[4] == 0x00){		//设备正常,更新状态
 				System.out.println("good");
-				locationMapper.updLocationStatusAndLen(0, 0, address, ipId);
+				try {
+					locationMapper.updateLocationStatusAndLen(0, 0, address, ipId);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//location.updLocationStatusAndLen(0, 0, address,ipId);
 				
 			} else if(bytes[4] == 0x01){	//设备检测到有漏水
@@ -32,7 +37,12 @@ public class LocationOrderRead {
 				length = length * 10;
 				System.out.println(length);
 				System.out.println("bad");
-				locationMapper.updLocationStatusAndLen(1, length, address, ipId);
+				try {
+					locationMapper.updateLocationStatusAndLen(1, length, address, ipId);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//location.updLocationStatusAndLen(1, lenght, address,ipId);
 				//selectAlarmWay(length,address,ipId);		//保存温湿度报警记录
 			}
@@ -46,7 +56,13 @@ public class LocationOrderRead {
 		String number = Integer.toString(ipId)+Integer.toString(address);
 		//System.out.println(number+"----number");
 		//System.out.println(address + "  " +ipId);
-		LocationManagePojo lmp = locationMapper.getLocation(address,ipId);
+		LocationPojo lmp =null;
+		try {
+			lmp = locationMapper.getLocation(address,ipId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int elm_id = lmp.getElm_id();
 		System.out.println(elm_id+"---id");
 		String name = lmp.getElm_name();

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
-import com.lain.entity.LocationManagePojo;
+import com.lain.entity.LocationPojo;
 import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 import com.lain.service.Ktr8052Service;
 import com.lain.service.LocationService;

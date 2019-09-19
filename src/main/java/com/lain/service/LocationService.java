@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.lain.entity.LocationManagePojo;
+import com.lain.entity.LocationPojo;
 
 public interface LocationService {
-
-	LocationManagePojo getLocation(int elm_address,int di_id);
-	List<LocationManagePojo> selectLocationAll();
+	
+	List<LocationPojo> getLocationAll()throws Exception;
 }

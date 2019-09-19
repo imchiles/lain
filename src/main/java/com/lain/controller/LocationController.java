@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lain.dao.LocationMapper;
-import com.lain.entity.LocationManagePojo;
+import com.lain.entity.LocationPojo;
 import com.lain.service.LocationService;
 
 @Controller
@@ -19,19 +18,13 @@ public class LocationController {
 
 	@Autowired
 	private LocationService locationService;
-	@Autowired
-	private LocationMapper locationMapper;
 	
 	@ResponseBody
-	@RequestMapping(value = "/selectLocationAll")
-	public List<LocationManagePojo> selectLocationAll() throws Exception {
-		return locationService.selectLocationAll();
+	@RequestMapping(value = "getLocationAll",method = RequestMethod.GET)
+	public List<LocationPojo> getLocationAll()throws Exception{
+		return locationService.getLocationAll();
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/getLocation")
-	public LocationManagePojo getLocation() throws Exception {
-		System.out.println("hh");
-		return locationService.getLocation(1,2);
-	}
+	
+	
 }

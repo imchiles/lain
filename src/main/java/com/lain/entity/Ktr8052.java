@@ -9,6 +9,14 @@ public class Ktr8052 extends DeviceIp{
 	private int kId;
 	private int diId;
 	private String k_name;
+	private String g_name;
+	
+	public String getG_name() {
+		return g_name;
+	}
+	public void setG_name(String g_name) {
+		this.g_name = g_name;
+	}
 	public String getK_name() {
 		return k_name;
 	}
