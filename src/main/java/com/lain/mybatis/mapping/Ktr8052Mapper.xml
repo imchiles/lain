@@ -9,15 +9,15 @@
 		UPDATE ktr8052_manage SET status=#{status} WHERE gallery=#{gallery} AND address=#{address} AND di_id=#{diId}
 	</update> 
 	<select id = "getKtr8052" resultType="com.lain.entity.Ktr8052">
-		select id,name,address,gallery,status,k_id,di_id from ktr8052_manage
+		select id,name,address,gallery,status,k_id,di_id from ktr8052_manage where k_id=#{k_id}
 	</select>
 	<select id="findKtr8052All" resultType="com.lain.entity.Ktr8052">
 		select a.id,a.name,a.address,a.gallery,a.status,b.di_address,b.di_port,b.di_isConnect,b.di_operate,c.k_name
 		from ktr8052_manage a,device_ip b,ktr8052_device c,device d
 		where
-		d.d_id = #{d_id} and
-		d.d_id = b.d_id and
-		a.di_id = b.di_id and a.k_id = c.k_id
+		d.d_id = #{d_id} 
+		and a.k_id = c.k_id and
+		a.di_id = b.di_id
 	</select>
 	
 	<insert id="insertAlarm">
@@ -32,4 +32,7 @@
 		select name from ktr8052_manage where gallery = #{gallery}
 	</select>
 	
+	<select id="getKtr8052Status" resultType="com.lain.entity.Ktr8052">
+		select id,status from ktr8052_manage where k_id=#{k_id}
+	</select>
 </mapper>

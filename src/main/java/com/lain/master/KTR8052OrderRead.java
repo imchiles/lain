@@ -20,7 +20,7 @@ public class KTR8052OrderRead {
 	public static byte FUNCTION_CODE = 0X02;	//功能码
 	public static byte BITS_LENGTH = 0X01;		//字节长度
 	private final static Map<String, TimePojo> map = new HashMap<String,TimePojo>();
-    private final static long codeOutTime = 15*60*1000;  //验证码过期时间
+    private final static long codeOutTime = 15*60*1000;  //报警信息存储间隔
 	
 	private static Ktr8052Mapper ktr8052Mapper;
 	

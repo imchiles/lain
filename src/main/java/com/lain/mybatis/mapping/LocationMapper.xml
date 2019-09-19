@@ -16,6 +16,6 @@
 	</select>
 	
 	<select id="selectLocationAll" resultType="com.lain.entity.LocationManagePojo">
-		select * from en_location_manage  where elm_name = "定位漏水"
+		select * from en_location_manage  
 	</select>
 </mapper>

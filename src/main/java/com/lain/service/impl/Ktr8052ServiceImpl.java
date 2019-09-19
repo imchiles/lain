@@ -21,8 +21,8 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	private Ktr8052Mapper ktr8052Mapper;
 
 	@Override
-	public List<Ktr8052> getKtr8052() throws Exception {
-		return ktr8052Mapper.getKtr8052();
+	public List<Ktr8052> getKtr8052(int k_id) throws Exception {
+		return ktr8052Mapper.getKtr8052(k_id);
 	}
 
 	@Override
@@ -41,6 +41,12 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	public List<Ktr8052Alarm> findKtr8052Alarm() throws Exception {
 		// TODO Auto-generated method stub
 		return ktr8052Mapper.findKtr8052Alarm();
+	}
+
+	@Override
+	public List<Ktr8052> getKtr8052Status(int k_id) throws Exception {
+		// TODO Auto-generated method stub
+		return ktr8052Mapper.getKtr8052Status(k_id);
 	}
 
 

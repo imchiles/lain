@@ -11,7 +11,7 @@ public class SocketSendOrder {
 	public static void humiture(final String Ip, final int Port, final List<byte[]> orders, final int diId) {
 		IpConnect.threadMap.get(Ip+":"+Port).execute(new Runnable() {
 			public void run() {
-				while (IpConnect.ipPortMap.get(Ip+Port)) {
+				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(byte[] order : orders){
 							byte[] back = socket.sendOrder(order, Ip, Port);
