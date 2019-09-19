@@ -12,7 +12,7 @@
 		select id,name,address,gallery,status,k_id,di_id from ktr8052_manage where k_id=#{k_id}
 	</select>
 	<select id="findKtr8052All" resultType="com.lain.entity.Ktr8052">
-		select a.id,a.name,a.address,a.gallery,a.status,b.di_address,b.di_port,b.di_isConnect,b.di_operate,c.k_name
+		select a.id,a.name,a.address,a.gallery,a.status,b.di_address,b.di_port,b.di_isConnect,b.di_operate,c.k_name,b.g_id
 		from ktr8052_manage a,device_ip b,ktr8052_device c,device d
 		where
 		d.d_id = #{d_id} 

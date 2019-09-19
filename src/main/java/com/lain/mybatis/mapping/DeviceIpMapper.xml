@@ -8,7 +8,7 @@
 		SELECT * FROM device_ip WHERE di_id=#{diId}
 	</select>
 	<select id="findDeviceIpAll" resultType="com.lain.entity.DeviceIp">
-		SELECT * FROM device_ip
+		SELECT * FROM device_ip di, device d WHERE di.d_id = d.d_id
 	</select>
 	<insert id="insertDeviceIpAll" parameterType="com.lain.entity.DeviceIp" useGeneratedKeys="true">
     	INSERT INTO device_ip (di_address,di_port,d_id,g_id) VALUE (#{diAddress},#{diPort},#{dId},#{gId})

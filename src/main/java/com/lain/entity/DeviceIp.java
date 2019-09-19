@@ -1,6 +1,6 @@
 package com.lain.entity;
 
-public class DeviceIp {
+public class DeviceIp extends Device{
 	private int diId;
 	private String diAddress;
 	private int diPort;

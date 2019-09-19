@@ -1,5 +1,6 @@
 package com.lain.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,35 @@ public class GroupController {
 	
 	@RequestMapping(value="/findGroupAll",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Group> findGroupAll(){
-		return groupService.findGroupAll();
+	public Group findGroupAll(){
+		List<Group> list = groupService.findGroupAll();
+		return gentree(list, null);
+	}
+	private static Group gentree(List<Group> list, Group tree){
+		if(tree != null){
+			int id = tree.getgId();
+			List<Group> children = tree.getChildren();
+			for(Group t : list){
+				int parentId = t.getParentId();
+				if(id == parentId){
+					Group group = new Group();
+					group.setgId(t.getgId());
+					group.setParentId(t.getParentId());
+					group.setgName(t.getgName());
+					group.setChildren(new ArrayList<Group>());
+					children.add(group);
+					gentree(list, group);
+				}
+			}
+			tree.setChildren(children);
+		}else{
+			tree = new Group();
+			tree.setgId(1);
+			tree.setParentId(0);
+			tree.setgName("×Ü±í");
+			tree.setChildren(new ArrayList<Group>());
+			gentree(list, tree);
+		}
+		return tree;
 	}
 }
