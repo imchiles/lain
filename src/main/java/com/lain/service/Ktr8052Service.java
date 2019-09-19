@@ -12,7 +12,7 @@ import com.lain.entity.LocationManagePojo;
 public interface Ktr8052Service {
 	
 	List<Ktr8052> getKtr8052(int k_id) throws Exception;
-	Ktr8052 findKtr8052All(int d_id)throws Exception;
+	List<Ktr8052> findKtr8052All(int d_id)throws Exception;
 	int insertAlarm(String name,String time,String gallery)throws Exception;
 	List<Ktr8052Alarm> findKtr8052Alarm() throws Exception;
 	List<Ktr8052> getKtr8052Status(int k_id) throws Exception;

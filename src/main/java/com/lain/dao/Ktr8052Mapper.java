@@ -15,7 +15,7 @@ public interface Ktr8052Mapper {
 								@Param("diId") int diId);
 	List<Ktr8052> getKtr8052(int k_id);
 	
-	Ktr8052 findKtr8052All(int d_id);
+	List<Ktr8052> findKtr8052All(int d_id);
 	
 	int insertAlarm(@Param("name")String name,@Param("time")String time,@Param("gallery")String gallery);
 	

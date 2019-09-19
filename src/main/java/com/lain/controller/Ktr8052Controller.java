@@ -28,7 +28,7 @@ public class Ktr8052Controller {
 	
 	//获取8052设备信息
 	@ResponseBody
-	@RequestMapping(value = "getKtr8052",method = RequestMethod.GET)
+	@RequestMapping(value = "getKtr8052/{k_id}",method = RequestMethod.GET)
 	public List<Ktr8052> getKtr8052(@PathVariable("k_id") int k_id) throws Exception {
 		return ktr8052Service.getKtr8052(k_id);
 	}
@@ -36,7 +36,7 @@ public class Ktr8052Controller {
 	//获取包括IP地址端口号的信息
 	@ResponseBody
 	@RequestMapping(value = "findKtr8052All/{d_id}",method = RequestMethod.GET)
-	public Ktr8052 findKtr8052All(@PathVariable("d_id") int d_id) throws Exception {
+	public List<Ktr8052> findKtr8052All(@PathVariable("d_id") int d_id) throws Exception {
 		return ktr8052Service.findKtr8052All(d_id);
 	}
 	
@@ -49,7 +49,7 @@ public class Ktr8052Controller {
 	
 	//获取8052设备状态
 		@ResponseBody
-		@RequestMapping(value = "getKtr8052Status",method = RequestMethod.GET)
+		@RequestMapping(value = "getKtr8052Status/{k_id}",method = RequestMethod.GET)
 		public List<Ktr8052> getKtr8052Status(@PathVariable("k_id") int k_id) throws Exception {
 			return ktr8052Service.getKtr8052(k_id);
 		}

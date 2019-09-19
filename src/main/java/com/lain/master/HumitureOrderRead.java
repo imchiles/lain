@@ -63,7 +63,7 @@ public class HumitureOrderRead {
 
 		String key = address+":"+diId;
 
-		if(Calculagraph.map.containsKey(key))
+		if(!Calculagraph.map.containsKey(key))
 			CALCULAGRAPH.SetMap(key, 0);
 
 		/** 保存历史记录*/
@@ -73,14 +73,11 @@ public class HumitureOrderRead {
 		}
 	}
 	public static void saveHumitureAlarm(double temp,double hum,int address,int diId, String Ip, int Port){
-		String number = String.valueOf(diId)+String.valueOf(address);
 		KEY = address+":"+diId;
 		double maxTemp = VALUE.get(KEY).get(0);
 		double minTemp = VALUE.get(KEY).get(1);
 		double maxHum = VALUE.get(KEY).get(2);
 		double minHum = VALUE.get(KEY).get(3);
-		String name = LIMIT.get(number).get("name");
-		String location = LIMIT.get(number).get("location");
 		
 		String info = null;
 		
@@ -92,8 +89,8 @@ public class HumitureOrderRead {
 		
 		String s = sdf.format(new Date());
 		
-		if(info.length() > 0){
-			String msg = location+"-"+name+":"+info;
+		if(info != null){
+			String msg = info;
 			selectAlarmWay(msg,address,diId,Ip,Port);
 		} else {
 			if(CALCULAGRAPH.isMap(s))

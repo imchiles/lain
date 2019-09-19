@@ -160,7 +160,7 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 			list.add(hm.getEhmMinTem());
 			list.add(hm.getEhmMaxHum());
 			list.add(hm.getEhmMinHum());
-			HumitureOrderRead.VALUE.put(hm.getDiAddress()+":"+hm.getDiId(), list);
+			HumitureOrderRead.VALUE.put(hm.getEhmDeviceAddress()+":"+hm.getDiId(), list);
 		}
 	}
 	

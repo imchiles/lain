@@ -26,7 +26,7 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	}
 
 	@Override
-	public Ktr8052 findKtr8052All(int d_id) throws Exception {
+	public List<Ktr8052> findKtr8052All(int d_id) throws Exception {
 		// TODO Auto-generated method stub
 		return ktr8052Mapper.findKtr8052All(d_id);
 	}
