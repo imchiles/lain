@@ -39,6 +39,7 @@ public class GroupController {
 					group.setChildren(new ArrayList<Group>());
 					children.add(group);
 					gentree(list, group);
+					System.out.println();
 				}
 			}
 			tree.setChildren(children);
