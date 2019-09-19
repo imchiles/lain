@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
+import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 
 public interface Ktr8052Mapper {
 	List<Integer> findKtr8052Address(int diId);
@@ -23,5 +24,5 @@ public interface Ktr8052Mapper {
 	
 	String selectKtr8052Name(String gallery);
 	
-	List<Ktr8052> getKtr8052Status(int k_id);
+	List<Ktr8052StatusPojo> getKtr8052Status(int k_id);
 }

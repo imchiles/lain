@@ -8,6 +8,7 @@ import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
 import com.lain.entity.LocationManagePojo;
+import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 
 public interface Ktr8052Service {
 	
@@ -15,5 +16,5 @@ public interface Ktr8052Service {
 	List<Ktr8052> findKtr8052All(int d_id)throws Exception;
 	int insertAlarm(String name,String time,String gallery)throws Exception;
 	List<Ktr8052Alarm> findKtr8052Alarm() throws Exception;
-	List<Ktr8052> getKtr8052Status(int k_id) throws Exception;
+	List<Ktr8052StatusPojo> getKtr8052Status(int k_id) throws Exception;
 }

@@ -16,6 +16,7 @@ import com.lain.dao.Ktr8052Mapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
 import com.lain.entity.LocationManagePojo;
+import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 import com.lain.service.Ktr8052Service;
 import com.lain.service.LocationService;
 
@@ -50,8 +51,8 @@ public class Ktr8052Controller {
 	//获取8052设备状态
 		@ResponseBody
 		@RequestMapping(value = "getKtr8052Status/{k_id}",method = RequestMethod.GET)
-		public List<Ktr8052> getKtr8052Status(@PathVariable("k_id") int k_id) throws Exception {
-			return ktr8052Service.getKtr8052(k_id);
+		public List<Ktr8052StatusPojo> getKtr8052Status(@PathVariable("k_id") int k_id) throws Exception {
+			return ktr8052Service.getKtr8052Status(k_id);
 		}
 
 }

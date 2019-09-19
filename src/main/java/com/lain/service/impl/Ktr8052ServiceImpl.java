@@ -12,6 +12,7 @@ import com.lain.dao.LocationMapper;
 import com.lain.entity.Ktr8052;
 import com.lain.entity.Ktr8052Alarm;
 import com.lain.entity.LocationManagePojo;
+import com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo;
 import com.lain.service.Ktr8052Service;
 
 @Service
@@ -44,7 +45,7 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	}
 
 	@Override
-	public List<Ktr8052> getKtr8052Status(int k_id) throws Exception {
+	public List<Ktr8052StatusPojo> getKtr8052Status(int k_id) throws Exception {
 		// TODO Auto-generated method stub
 		return ktr8052Mapper.getKtr8052Status(k_id);
 	}

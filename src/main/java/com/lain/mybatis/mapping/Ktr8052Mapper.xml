@@ -32,7 +32,7 @@
 		select name from ktr8052_manage where gallery = #{gallery}
 	</select>
 	
-	<select id="getKtr8052Status" resultType="com.lain.entity.Ktr8052">
+	<select id="getKtr8052Status" resultType="com.lain.entity.Ktr8052Pojo.Ktr8052StatusPojo">
 		select id,status from ktr8052_manage where k_id=#{k_id}
 	</select>
 </mapper>
