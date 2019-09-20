@@ -1,5 +1,8 @@
 package com.lain.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -37,9 +40,23 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 	}
 
 	@Override
-	public List<Ktr8052Alarm> findKtr8052Alarm() throws Exception {
+	public List<Ktr8052Alarm> findKtr8052Alarm(String startTime, String endTime) throws Exception {
 		// TODO Auto-generated method stub
-		return ktr8052Mapper.findKtr8052Alarm();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date start = null;
+		Date end = null;
+		try {
+			if(!"null".equals(startTime)){
+				start = sdf.parse(startTime);
+			}
+			if(!"null".equals(endTime)){
+				end = sdf.parse(endTime);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return ktr8052Mapper.findKtr8052Alarm(start,end);
 	}
 
 	@Override
@@ -47,6 +64,14 @@ public class Ktr8052ServiceImpl implements Ktr8052Service{
 		// TODO Auto-generated method stub
 		return ktr8052Mapper.getKtr8052Status(k_id);
 	}
+
+	@Override
+	public List<Ktr8052Alarm> findKtr8052AlarmNot() throws Exception {
+		// TODO Auto-generated method stub
+		return ktr8052Mapper.findKtr8052AlarmNot();
+	}
+
+	
 
 
 }

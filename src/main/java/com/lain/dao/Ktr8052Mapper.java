@@ -1,5 +1,6 @@
 package com.lain.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,9 +19,16 @@ public interface Ktr8052Mapper {
 	
 	List<Ktr8052> findKtr8052All(int d_id);
 	
-	int insertAlarm(@Param("name")String name,@Param("time")String time,@Param("gallery")String gallery);
+	int insertAlarm(
+			@Param("name")String name,
+			@Param("time")String time,
+			@Param("gallery")String gallery);
 	
-	List<Ktr8052Alarm> findKtr8052Alarm();
+	List<Ktr8052Alarm> findKtr8052Alarm(
+			@Param("startTime") Date startTime,
+			@Param("endTime") Date endTime);
+	
+	List<Ktr8052Alarm> findKtr8052AlarmNot();
 	
 	String selectKtr8052Name(String gallery);
 	

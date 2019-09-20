@@ -2,7 +2,7 @@ package com.lain.entity;
 
 import java.util.Date;
 
-public class Log {
+public class Log extends User{
 	private int logId;
 	private String logType;
 	private String content;

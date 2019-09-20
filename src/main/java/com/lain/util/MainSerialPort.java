@@ -95,7 +95,7 @@ public class MainSerialPort implements InitializingBean, ServletContextAware{
 					orders.add(back);
 				}
 				size = items.size();
-				System.out.println(size);
+				//System.out.println(size);
 				break;
 			case 3://8060
 				Alarm.setKtr8060Mapper(ktr8060Mapper);

@@ -15,17 +15,18 @@
 	</select>
 	<insert id="insertHumitureManage" parameterType="com.lain.entity.HumitureManage"
 		useGeneratedKeys="true">
+		
 		INSERT INTO
-		user(ehm_deviceAddress,ehm_deviceName,ehm_tem,ehm_hum,ehm_maxTem,ehm_minTem,ehm_maxHum,ehm_minHum,intervalTime)
+		en_humiture_manage (ehm_deviceAddress,ehm_deviceName,ehm_maxTem,ehm_minTem,ehm_maxHum,ehm_minHum,intervalTime,di_id)
 		VALUES
-		(#{ehmDeviceAddress},#{ehmDeviceName},#{ehmTem},#{emmHum},#{ehmMaxTem},#{ehmMinTem},#{ehmMaxHum},#{ehmMinHum},#{intervalTime})
+		(#{ehmDeviceAddress},#{ehmDeviceName},#{ehmMaxTem},#{ehmMinTem},#{ehmMaxHum},#{ehmMinHum},#{intervalTime},#{diId})
 	</insert>
 	<delete id="deleteHumitureManageById">
 		DELETE FROM en_humiture_manage WHERE ehm_id=#{ehmId}
 	</delete>
 	<update id="updateHumitureRealTimeData">
 		UPDATE en_humiture_manage SET
-		ehm_tem=#{ehmTem},ehm_hum=#{ehmHum},ehm_deviceAddress=#{ehmDeviceAddress},di_id=#{diId}
+		ehm_tem=#{ehmTem},ehm_hum=#{ehmHum} where ehm_deviceAddress=#{ehmDeviceAddress} and di_id=#{diId}
 	</update>
 
 	<!-- HUMITURE_HISTORY -->

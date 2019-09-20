@@ -75,10 +75,14 @@ public class SocketSendOrder {
 				while (IpConnect.ipPortMap.get(Ip+":"+Port)) {
 					try {
 						for(int i=0;i<orders.size();i++){
+							System.out.println("走进这里");
 							byte[] back = socket.sendOrder(orders.get(i), Ip, Port);
-							if(back!=null  && back.length==9){	//定位漏水模块
+							if(back!=null  ){	//定位漏水模块
+								
 								LocationOrderRead.getLocationBGO(back, diId);	//处理返回的数据
+								System.out.println("sss");
 							}
+							
 						}
 						Thread.sleep(5000);
 					} catch (Exception e) {

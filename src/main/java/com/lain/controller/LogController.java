@@ -17,11 +17,12 @@ import com.lain.service.LogService;
 public class LogController {
 	@Autowired
 	private LogService logService;
-	@RequestMapping(value="/findLogBydate/{startTime}/{endTime}/{log_type}",method=RequestMethod.GET)
+	@RequestMapping(value="/findLogBydate/{startTime}/{endTime}",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Log> findLogBydate(	@PathVariable("startTime") String startTime,
-									@PathVariable("endTime") String endTime,
-									@PathVariable("log_type") String logType){
-		return logService.findLogBydate(startTime, endTime, logType);
+									@PathVariable("endTime") String endTime
+									){
+		System.out.println(startTime + "  " + endTime);
+		return logService.findLogBydate(startTime, endTime);
 	}
 }

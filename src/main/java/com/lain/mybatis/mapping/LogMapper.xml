@@ -6,27 +6,19 @@
 		INSERT INTO log(log_type,content,u_id,gen_time) value (#{logType},#{content},#{uId},now())
 	</insert>
 	<select id="findLogBydate" resultType="com.lain.entity.Log">
-		SELECT * FROM log
-		<if test="startTime!=null or endTime!=null or logType!=null">
-			WHERE 
-		</if>
+		SELECT * FROM log<!-- ,user -->
+		<!-- where log.u_id = user.u_id -->
 		<if test="startTime!=null or endTime!=null">
-			gen_time 
+			where gen_time 
 			<if test="startTime!=null and endTime!=null">
 				BETWEEN #{startTime} AND #{endTime}
 			</if>
 			<if test="startTime!=null and endTime==null">
-				 &gt; #{startTime
+				 &gt; #{startTime}
 			</if>
 			<if test="startTime==null and endTime!=null">
 				&lt; #{endTime}
 			</if>
-			<if test="logType!=null">
-				AND
-			</if>
-		</if>
-		<if test="logType!=null">
-			logType = #{logType}
 		</if>
 	</select>
 </mapper>

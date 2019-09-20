@@ -17,7 +17,7 @@ public class LogServiceImpl implements LogService{
 	@Autowired
 	private LogMapper logMapper;
 	@Override
-	public List<Log> findLogBydate(String startTime, String endTime, String logType) {
+	public List<Log> findLogBydate(String startTime, String endTime) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date start = null;
 		Date end = null;
@@ -31,9 +31,7 @@ public class LogServiceImpl implements LogService{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		if("null".equals(logType)){
-			logType = null;
-		}
-		return logMapper.findLogBydate(start, end, logType);
+		
+		return logMapper.findLogBydate(start, end);
 	}
 }

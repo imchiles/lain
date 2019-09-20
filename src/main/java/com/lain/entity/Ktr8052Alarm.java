@@ -1,10 +1,12 @@
 package com.lain.entity;
 
+import java.util.Date;
+
 public class Ktr8052Alarm {
 	
 	private int id;
 	private String name;
-	private String time;
+	private Date time;
 	private String gallery;
 	
 	
@@ -20,10 +22,11 @@ public class Ktr8052Alarm {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getTime() {
+	
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 	public String getGallery() {

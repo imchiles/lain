@@ -19,32 +19,25 @@ public class LocationController {
 	@Autowired
 	private LocationService locationService;
 	
+	//获取定位漏水地址，这里不做接口使用
 	@ResponseBody
 	@RequestMapping(value = "findLocationAddress",method = RequestMethod.GET)
 	public List<Integer> findLocationAddress()throws Exception{
 		return locationService.findLocationAddress(2);
 	}
 	
+	//获取定位漏水所有信息
 	@ResponseBody
 	@RequestMapping(value = "getLocationAll",method = RequestMethod.GET)
 	public List<LocationManage> getLocationAll()throws Exception{
 		return locationService.getLocationAll();
 	}
 	
+	//更新定位漏水状态，不做接口使用
 	@ResponseBody
 	@RequestMapping(value = "updateLocationStatusAndLen")
-	public boolean updateLocationStatusAndLen() {
-		boolean b = false;
-		try {
-			b = locationService.updateLocationStatusAndLen(1, 5, 1, 2);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return b;
-		
+	public boolean updateLocationStatusAndLen() throws Exception {
+		return locationService.updateLocationStatusAndLen(1, 5, 1, 2);
 	}
-	
-	
 	
 }

@@ -9,5 +9,7 @@ import com.lain.entity.Log;
 
 public interface LogMapper {
 	void insertLog(Log log);
-	List<Log> findLogBydate(@Param("startTime") Date startTime,@Param("endTime") Date endTime,@Param("logType") String logType);
+	List<Log> findLogBydate(
+			@Param("startTime") Date startTime,
+			@Param("endTime") Date endTime);
 }

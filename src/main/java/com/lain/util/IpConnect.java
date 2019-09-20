@@ -141,6 +141,7 @@ public class IpConnect {
 				SocketSendOrder.electricmenter(Ip, Port, orders, diId);
 				break;
 			case 9://定位漏水
+
 				SocketSendOrder.location(Ip, Port, orders, diId);
 				break;
 			case 10://二氧化碳

@@ -6,7 +6,7 @@ import java.util.Date;
 public class Time {
 
 	public static String getTimeymd() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd HH:mm:ss");//设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String testDate=df.format(new Date());//格式化当前日期
         return testDate;
     }

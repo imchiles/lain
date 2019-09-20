@@ -26,8 +26,28 @@
 		insert into ktr8052_alarm(name,time,gallery) values(#{name},#{time},#{gallery})
 	</insert>
 	
-	<select id="findKtr8052Alarm" resultType="com.lain.entity.Ktr8052Alarm">
+	 <select id="findKtr8052Alarm" resultType="com.lain.entity.Ktr8052Alarm">
 		select * from ktr8052_alarm
+		<if test="startTime!=null or endTime!=null">
+			WHERE 
+		</if>
+		<if test="startTime!=null or endTime!=null">
+			time 
+			<if test="startTime!=null and endTime!=null">
+				BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="startTime!=null and endTime==null">
+				 &gt; #{startTime}
+			</if>
+			<if test="startTime==null and endTime!=null">
+				&lt; #{endTime}
+			</if>
+		</if>
+	</select>
+	
+	<select id="findKtr8052AlarmNot" resultType="com.lain.entity.Ktr8052Alarm">
+		select * from ktr8052_alarm
+		
 	</select>
 	
 	<select id="selectKtr8052Name" resultType="String">
