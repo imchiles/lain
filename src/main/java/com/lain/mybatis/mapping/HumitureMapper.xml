@@ -9,10 +9,12 @@
 		SELECT
 		ehm_deviceAddress FROM en_humiture_manage WHERE di_id=#{diId}
 	</select>
+	
 	<select id="findHumitureManageAll" resultType="com.lain.entity.HumitureManage">
 		SELECT * FROM
 		en_humiture_manage ehm,device_ip di WHERE ehm.di_id = di.di_id;
 	</select>
+	
 	<insert id="insertHumitureManage" parameterType="com.lain.entity.HumitureManage"
 		useGeneratedKeys="true">
 		
@@ -21,9 +23,11 @@
 		VALUES
 		(#{ehmDeviceAddress},#{ehmDeviceName},#{ehmMaxTem},#{ehmMinTem},#{ehmMaxHum},#{ehmMinHum},#{intervalTime},#{diId})
 	</insert>
+	
 	<delete id="deleteHumitureManageById">
 		DELETE FROM en_humiture_manage WHERE ehm_id=#{ehmId}
 	</delete>
+	
 	<update id="updateHumitureRealTimeData">
 		UPDATE en_humiture_manage SET
 		ehm_tem=#{ehmTem},ehm_hum=#{ehmHum} where ehm_deviceAddress=#{ehmDeviceAddress} and di_id=#{diId}
@@ -35,6 +39,7 @@
 		FROM en_humiture_manage WHERE ehm_deviceAddress=#{ehmDeviceAddress}
 		AND di_id=#{diId}
 	</select>
+	
 	<insert id="saveHumitureHistory">
 		INSERT INTO en_humiture_history
 		(ehh_tem,ehh_hum,ehh_time,ehm_deviceAddress,di_id) VALUES

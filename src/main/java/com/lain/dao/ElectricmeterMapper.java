@@ -16,5 +16,7 @@ public interface ElectricmeterMapper {
 	boolean deleteElectricmeterManage(int pemId);
 	boolean updateElectricmeterRealTimeData(ElectricmeterData ed);
 	void saveElectricmeterHistory(ElectricmeterHistory eh);
-	int findIntervalTime(@Param("pemAddress") int pemAddress,@Param("diId") int diId);
+	int findIntervalTime(
+			@Param("pemAddress") int pemAddress,
+			@Param("diId") int diId);
 }
