@@ -8,7 +8,7 @@
 	<name>software Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<spring.security.version>5.2.10.RELEASE</spring.security.version>
 		<!-- spring版本号 -->
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<!-- mybatis版本号 -->
